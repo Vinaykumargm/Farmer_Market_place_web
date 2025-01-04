@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Order History</h2>
+        <ul>
+            <% orders.forEach(order => { %>
+                <li>
+                    <p><strong>Order ID:</strong> <%= order.id %></p>
+                    <p><strong>Product ID:</strong> <%= order.product_id %></p>
+                    <p><strong>Quantity:</strong> <%= order.quantity %></p>
+                    <p><strong>Total Price:</strong> <%= order.total_price %></p>
+                    <p><strong>Status:</strong> <%= order.status %></p>
+                    <p><strong>Date:</strong> <%= order.created_at %></p>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>

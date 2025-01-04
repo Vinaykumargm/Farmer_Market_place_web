@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        function checkFormSubmission(event) {
+            console.log('Form is being submitted');
+            return true; // Ensure form submission proceeds
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <!-- Add header content if needed -->
+    </header>
+
+    <main>
+        <h1>Shopping Cart</h1>
+
+        <% if (cartItems.length === 0) { %>
+            <p>You have not added anything to your cart.</p>
+        <% } else { %>
+            <form action="/order/place" method="POST" onsubmit="return checkFormSubmission(event)">
+                <ul class="cart-list">
+                    <% cartItems.forEach(item => { %>
+                        <li class="cart-item">
+                            <img src="<%= item.image %>" alt="<%= item.name %>">
+                            <h3><%= item.name %></h3>
+                            <p>Price: $<%= item.price %></p>
+                            <p>Quantity: <%= item.quantity %></p>
+                            <input type="hidden" name="product_ids[]" value="<%= item.product_id %>">
+                            <input type="hidden" name="quantities[]" value="<%= item.quantity %>">
+                        </li>
+                    <% }) %>
+                </ul>
+
+                <h2>Total Price: $<%= cartItems.reduce((total, item) => total + (item.price * item.quantity), 0) %></h2>
+                
+                <label for="paymentMethod">Payment Method:</label>
+                <select name="paymentMethod" required>
+                    <option value="PhonePe">PhonePe</option>
+                    <option value="Paytm">Paytm</option>
+                    <option value="Gpay">Gpay</option>
+                </select>
+                
+                <button type="submit">Place Order</button>
+            </form>
+
+            <!-- Delete Forms -->
+            <% cartItems.forEach(item => { %>
+                <form action="/cart/delete/<%= item.id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete <%= item.name %></button>
+                </form>
+            <% }) %>
+        <% } %>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Farmer Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

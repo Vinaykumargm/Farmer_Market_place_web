@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <%- include('partials/header', { title: 'Your Page Title' }) %>
+
+    <div class="container">
+        <h2>Manage Product Demands</h2>
+
+        <!-- Display the message if it exists -->
+        <% if (message) { %>
+            <div class="message">
+                <p><%= message %></p>
+            </div>
+        <% } %>
+
+        <ul>
+            <% productDemands.forEach(demand => { %>
+                <li>
+                    <p><strong>Product Name:</strong> <%= demand.product_name %></p>
+                    <p><strong>Quantity:</strong> <%= demand.quantity %></p>
+                    <p><strong>Status:</strong> <%= demand.status %></p>
+                    <form action="/communication/manage/<%= demand.id %>/update" method="post">
+                        <select name="status">
+                            <option value="pending" <%= demand.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                            <option value="approved" <%= demand.status === 'approved' ? 'selected' : '' %>>Approved</option>
+                            <option value="rejected" <%= demand.status === 'rejected' ? 'selected' : '' %>>Rejected</option>
+                        </select>
+                        <button type="submit">Update Status</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>

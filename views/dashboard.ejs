@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>User Dashboard</h1>
+    </header>
+    <main>
+        <nav>
+            <ul>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/products">Products Management</a></li>
+                <li><a href="/orders">Orders Management</a></li>
+                <li><a href="/communication">Communication</a></li>
+                <% if (user.role !== 'farmer') { %> 
+                <li><a href="/reviews">Give Reviews and Ratings</a></li>
+                <% } %>
+                <% if (user.role === 'farmer') { %>
+                    <li><a href="/farmer/reviews">View Reviews</a></li>
+                <% } %>
+                <% if (user.role === 'farmer') { %>
+                    <li><a href="/product/report">View Product Report</a></li>
+                <% } %>
+                <li><a href="/security">Security and Privacy</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+    </header>
+
+    <main>
+        <h1>Search Results</h1>
+
+        <% if (message) { %>
+            <p><%= message %></p>
+        <% } else if (products.length === 0) { %>
+            <p>No products found.</p>
+        <% } else { %>
+            <ul class="product-list">
+                <% products.forEach(product => { %>
+                    <li class="product-item">
+                        <img src="<%= product.image %>" alt="<%= product.name %>">
+                        <h3><%= product.name %></h3>
+                        <p>Price: $<%= product.price %></p>
+                        <p>Available Quantity: <%= product.quantity %></p>
+                        <form action="/cart/add" method="POST">
+                            <input type="hidden" name="productId" value="<%= product.id %>">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" name="quantity" min="1" max="15" required>
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Farmer Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

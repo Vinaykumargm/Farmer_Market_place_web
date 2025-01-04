@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css"> <!-- Adjust the path to your stylesheet -->
+</head>
+<body>
+    <%- include('partials/header', { title: 'Your Page Title' }) %>
+    <div class="container">
+        <h2>Review Products</h2>
+        <% if (orders.length === 0) { %>
+            <p>No products available for review.</p>
+        <% } else { %>
+            <ul>
+                <% orders.forEach(order => { %>
+                    <li>
+                        <p><strong>Product Name:</strong> <%= order.product_name %></p>
+                        <form action="/reviews" method="post">
+                            <input type="hidden" name="order_id" value="<%= order.order_id %>">
+                            <input type="hidden" name="product_id" value="<%= order.product_id %>">
+                            <label for="rating">Rating (1-5):</label>
+                            <input type="number" name="rating" min="1" max="5" required>
+                            <label for="review_text">Review:</label>
+                            <textarea name="review_text" required></textarea>
+                            <button type="submit">Submit Review</button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </div>
+</body>
+</html>

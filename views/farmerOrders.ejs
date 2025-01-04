@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        form {
+            margin-top: 10px;
+        }
+        select {
+            padding: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>My Orders</h2>
+        <% if (orders.length > 0) { %>
+            <ul>
+                <% orders.forEach(order => { %>
+                    <li>
+                        <p><strong>Order ID:</strong> <%= order.id %></p>
+                        <p><strong>Product ID:</strong> <%= order.product_id %></p>
+                        <p><strong>Quantity:</strong> <%= order.quantity %></p>
+                        <p><strong>Total Price:</strong> <%= order.total_price %></p>
+                        <p><strong>Status:</strong> <%= order.status %></p>
+                        <form action="/orders/update/<%= order.id %>" method="post">
+                            <select name="status">
+                                <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                                <option value="shipped" <%= order.status === 'shipped' ? 'selected' : '' %>>Shipped</option>
+                                <option value="delivered" <%= order.status === 'delivered' ? 'selected' : '' %>>Delivered</option>
+                                <option value="canceled" <%= order.status === 'canceled' ? 'selected' : '' %>>Canceled</option>
+                            </select>
+                            <button type="submit">Update Status</button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No orders found.</p>
+        <% } %>
+    </div>
+</body>
+</html>
+
+
+
+
+

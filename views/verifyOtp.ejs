@@ -1,0 +1,18 @@
+<!-- verifyOtp.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Verify OTP</h1>
+    <form action="/verify-otp" method="POST">
+        <input type="hidden" id="email" name="email" value="<%= email %>" required>
+        <label for="otp">OTP:</label>
+        <input type="text" id="otp" name="otp" required>
+        <button type="submit">Verify OTP</button>
+    </form>
+</body>
+</html>

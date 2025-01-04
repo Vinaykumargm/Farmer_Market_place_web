@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" href="/styles/main.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        
+        p {
+            color: #666;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        li p {
+            margin: 5px 0;
+        }
+        
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+        }
+    </style>
+    <%- include('partials/header', { title: 'User Profile' }) %>
+</head>
+<body>
+    <h2>Product Reviews</h2>
+    <% if (reviews.length === 0) { %>
+        <p>No reviews available.</p>
+    <% } else { %>
+        <ul>
+            <% reviews.forEach(review => { %>
+                <li>
+                    <p><strong>Product Name:</strong> <%= review.product_name %></p>
+                    <p><strong>Rating:</strong> <%= review.rating %></p>
+                    <p><strong>Review:</strong> <%= review.review %></p>
+                </li>
+            <% }) %>
+        </ul>
+    <% } %>
+</body>
+</html>

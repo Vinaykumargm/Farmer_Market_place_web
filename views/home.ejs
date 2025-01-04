@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Farmer Marketplace</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            width: 100%;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .messages {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .messages p {
+            font-size: 1.2em;
+            color: #333;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .messages p::before {
+            content: '✔ ';
+            color: #4CAF50;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Farmer Marketplace</h1>
+    </header>
+    <main>
+        <div class="messages">
+            <p>Connecting farmers and buyers seamlessly.</p>
+            <p>Register now and get started with our secure and easy-to-use platform!</p>
+            <p>Login to manage your profile, view orders, and more.</p>
+            <p>Upload and manage your products with ease.</p>
+            <p>View detailed reports on your products by category.</p>
+            <p>Keep track of your orders and update their status in real-time.</p>
+            <p>Easily manage your order status and ensure timely delivery.</p>
+            <p>Read reviews from buyers and respond to their feedback.</p>
+            <p>Build trust by engaging with your customers.</p>
+            <p>Stay updated with email notifications for important events.</p>
+            <p>Receive OTPs for secure two-step authentication.</p>
+            <p>Access your personalized dashboard for a comprehensive overview.</p>
+            <p>Your data is safe with us. Enjoy a secure and efficient marketplace experience.</p>
+        </div>
+        <div class="buttons">
+            <a href="/login" class="button">Login</a>
+            <a href="/signup" class="button">Sign Up</a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <%- include('partials/header', { title: 'Your Page Title' }) %>
+
+    <div class="container">
+        <h2>Demand a Product</h2>
+
+        <!-- Display the message if it exists -->
+        <% if (message) { %>
+            <div class="message">
+                <p><%= message %></p>
+            </div>
+        <% } %>
+
+        <form action="/communication/demand" method="post">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <h3>My Demands</h3>
+        <ul>
+            <% productDemands.forEach(demand => { %>
+                <li>
+                    <p><strong>Product Name:</strong> <%= demand.product_name %></p>
+                    <p><strong>Quantity:</strong> <%= demand.quantity %></p>
+                    <p><strong>Status:</strong> <%= demand.status %></p>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <!-- Your header content here -->
+    </header>
+
+    <main>
+        <h1>Order Confirmation</h1>
+        <p>Your order has been placed successfully.</p>
+        <p>Estimated Delivery Date: <%= estimatedDeliveryDate %></p>
+        <a href="/products">Continue Shopping</a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Farmer Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- views/farmerReviews.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Reviews</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Product Reviews</h1>
+
+    <% if (reviews.length > 0) { %>
+        <ul>
+            <% reviews.forEach(review => { %>
+                <li>
+                    <strong>User:</strong> <%= review.user_id %><br>
+                    <strong>Product:</strong> <%= review.product_id %><br>
+                    <strong>Order:</strong> <%= review.order_id %><br>
+                    <strong>Rating:</strong> <%= review.rating %><br>
+                    <strong>Review:</strong> <%= review.review %><br>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No reviews found.</p>
+    <% } %>
+</body>
+</html>

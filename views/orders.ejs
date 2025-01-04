@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Order Management' }) %>
+
+<html>
+<head>
+    <title>Order Management</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Ensure this file exists or adjust the path -->
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .actions form {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Order Management</h1>
+        <nav>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/products">Products</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>My Orders</h2>
+        <% if (orders.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach(order => { %>
+                        <tr>
+                            <td><%= order.id %></td>
+                            <td><%= order.product_name %></td>
+                            <td><%= order.quantity %></td>
+                            <td>$<%= order.total_price.toFixed(2) %></td>
+                            <td><%= order.status %></td>
+                            <td class="actions">
+                                <% if (order.status === 'Pending') { %>
+                                    <form action="/orders/<%= order.id %>/update" method="POST">
+                                        <select name="status">
+                                            <option value="Pending" <%= order.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                                            <option value="Shipped" <%= order.status === 'Shipped' ? 'selected' : '' %>>Shipped</option>
+                                            <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+                                            <option value="Canceled" <%= order.status === 'Canceled' ? 'selected' : '' %>>Canceled</option>
+                                        </select>
+                                        <button type="submit">Update</button>
+                                    </form>
+                                    <form action="/orders/<%= order.id %>/cancel" method="POST">
+                                        <button type="submit">Cancel</button>
+                                    </form>
+                                <% } else if (order.status === 'Shipped') { %>
+                                    <form action="/orders/<%= order.id %>/update" method="POST">
+                                        <select name="status">
+                                            <option value="Shipped" <%= order.status === 'Shipped' ? 'selected' : '' %>>Shipped</option>
+                                            <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+                                            <option value="Canceled" <%= order.status === 'Canceled' ? 'selected' : '' %>>Canceled</option>
+                                        </select>
+                                        <button type="submit">Update</button>
+                                    </form>
+                                <% } else { %>
+                                    <span>No actions available</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No orders to display.</p>
+        <% } %>
+        <a href="/products">Continue Shopping</a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Farmer Marketplace. All rights reserved.</p>
+    </footer>
+</body>
+</html>

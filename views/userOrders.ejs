@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Orders</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Your Orders</h1>
+    <ul>
+        <% orders.forEach(order => { %>
+            <li>
+                <h3><%= order.product_name %></h3>
+                <p>Quantity: <%= order.quantity %></p>
+                <p>Total Price: $<%= order.total_price %></p>
+                <p>Status: <%= order.status %></p>
+            </li>
+        <% }) %>
+    </ul>
+    <a href="/order-management">Continue Shopping</a>
+</body>
+</html>

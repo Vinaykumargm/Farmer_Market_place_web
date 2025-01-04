@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .signup-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+        .show-password-container {
+            display: flex;
+            align-items: center;
+        }
+        .show-password-container input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+        .login-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Signup</h1>
+    </header>
+    <main>
+        <div class="signup-container">
+            <form action="/signup" method="POST" id="signupForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span id="emailError" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <small>Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character.</small>
+                </div>
+                <div class="form-group show-password-container">
+                    <input type="checkbox" id="showPassword">
+                    <label for="showPassword">Show Password</label>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone">
+                    <span id="phoneError" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" required>
+                        <option value="user">User</option>
+                        <option value="farmer">Farmer</option>
+                    </select>
+                </div>
+                <div class="form-group" id="fruitIdField" style="display: none;">
+                    <label for="fruitId">Fruit ID (Farmer Only):</label>
+                    <input type="text" id="fruitId" name="fruitId" placeholder="FARMXXXXX">
+                    <span id="fruitIdError" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Signup</button>
+                </div>
+                <% if (message) { %>
+                    <p><%= message %></p>
+                <% } %>
+            </form>
+            <div class="login-link">
+                <p>Already have an account? <a href="/login">Login here</a></p>
+            </div>
+            <script>
+                document.getElementById('role').addEventListener('change', function() {
+                    var fruitIdField = document.getElementById('fruitIdField');
+                    if (this.value === 'farmer') {
+                        fruitIdField.style.display = 'block';
+                    } else {
+                        fruitIdField.style.display = 'none';
+                    }
+                });
+
+                // Toggle password visibility
+                document.getElementById('showPassword').addEventListener('change', function() {
+                    var passwordField = document.getElementById('password');
+                    passwordField.type = this.checked ? 'text' : 'password';
+                });
+
+                // Form validation
+                document.getElementById('signupForm').addEventListener('submit', function(event) {
+                    var emailField = document.getElementById('email');
+                    var phoneField = document.getElementById('phone');
+                    var fruitIdField = document.getElementById('fruitId');
+                    var emailError = document.getElementById('emailError');
+                    var phoneError = document.getElementById('phoneError');
+                    var fruitIdError = document.getElementById('fruitIdError');
+
+                    var email = emailField.value;
+                    var phone = phoneField.value;
+                    var fruitId = fruitIdField.value;
+
+                    var isValid = true;
+
+                    // Validate email
+                    if (!email.endsWith('@gmail.com')) {
+                        emailError.textContent = 'Email must end with @gmail.com.';
+                        isValid = false;
+                    } else {
+                        emailError.textContent = '';
+                    }
+
+                    // Validate phone number
+                    var phonePattern = /^\d{10}$/;
+                    if (!phonePattern.test(phone)) {
+                        phoneError.textContent = 'Phone number must be exactly 10 digits.';
+                        isValid = false;
+                    } else {
+                        phoneError.textContent = '';
+                    }
+
+                    // Validate Fruit ID if the role is 'farmer'
+                    if (document.getElementById('role').value === 'farmer') {
+                        var fruitIdPattern = /^FARM\d{5}$/;
+                        if (!fruitIdPattern.test(fruitId)) {
+                            fruitIdError.textContent = 'Fruit ID must start with "FARM" followed by exactly 5 digits.';
+                            isValid = false;
+                        } else {
+                            fruitIdError.textContent = ''; // Clear any previous error
+                        }
+                    }
+
+                    if (!isValid) {
+                        event.preventDefault(); // Prevent form submission
+                    }
+                });
+            </script>
+        </div>
+    </main>
+</body>
+</html>

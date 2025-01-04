@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Communication</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Communication</h1>
+    </header>
+    <main>
+        <form action="/communication" method="POST">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+        <ul>
+            <% messages.forEach(message => { %>
+                <li>
+                    <p><%= message.content %></p>
+                    <p>From: <%= message.sender %></p>
+                    <p>To: <%= message.receiver %></p>
+                    <p>Date: <%= message.date %></p>
+                </li>
+            <% }) %>
+        </ul>
+    </main>
+</body>
+</html>

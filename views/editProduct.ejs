@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<%- include('partials/header', { title: 'Your Page Title' }) %>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link rel="stylesheet" href="/styles/style.css"> <!-- Link to your CSS file if needed -->
+    <style>
+        /* Inline CSS for simplicity */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        form button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Farmer Marketplace</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Edit Product</h2>
+        <form action="/products/edit/<%= product.id %>" method="POST" enctype="multipart/form-data">
+            <label for="name">Product Name:</label>
+            <input type="text" id="name" name="name" value="<%= product.name %>" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required><%= product.description %></textarea>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" value="<%= product.price %>" required>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="" disabled>Select a category</option>
+                <option value="fruits" <%= product.category === 'fruits' ? 'selected' : '' %>>Fruits</option>
+                <option value="vegetables" <%= product.category === 'vegetables' ? 'selected' : '' %>>Vegetables</option>
+                <option value="dairy" <%= product.category === 'dairy' ? 'selected' : '' %>>Dairy</option>
+                <option value="grains" <%= product.category === 'grains' ? 'selected' : '' %>>Grains</option>
+                <option value="herbs" <%= product.category === 'herbs' ? 'selected' : '' %>>Herbs</option>
+                <option value="nuts" <%= product.category === 'nuts' ? 'selected' : '' %>>Nuts</option>
+                <!-- Add more categories as needed -->
+            </select>
+
+            <label for="image">Product Image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+
+            <button type="submit">Update Product</button>
+        </form>
+    </main>
+</body>
+</html>
