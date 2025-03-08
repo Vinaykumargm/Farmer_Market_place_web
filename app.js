@@ -15,7 +15,7 @@ const { checkPassword } = require('./passwordValidator');
 require('dotenv').config();
 const { sendEmail } = require('./emailModule');
 
-
+module.exports=app;
 
 // Middleware setup
 app.set('view engine', 'ejs');
